@@ -13,18 +13,22 @@
 # Tabla de contenidos
 
 1. [Presentación del trabajo](#presentacion)
-2. [Paso 0: entorno de trabajo](#paso0)
+    * [Descripción del problema](#descripcion)
+    * [Especificaciones requeridas por la cátedra](#especificaciones)
+    * [Restricciones](#reestricciones)
+2. [Resolución](#resolucion)
+    * [Paso 0: Entorno de trabajo](#r_paso0)
 
 
 <!-- ##################################################################### -->
 
 # Presentación del trabajo <a name="presentacion"></a>
 
-## Descripción del problema
+## Descripción del problema <a name="descripcion"></a>
 
 > Se requiere una aplicación de consola que cuente palabras y líneas de un archivo de texto plano determinado.
 
-## Especificaciones requeridas por la cátedra
+## Especificaciones requeridas por la cátedra <a name="especificaciones"></a>
 
 ### De funcionalidad:
 
@@ -66,7 +70,7 @@
 > `<cantidad-palabras>\n`
 
 
-## Restricciones
+## Restricciones <a name="reestricciones"></a>
 
 > La siguiente es una lista de restricciones técnicas exigidas para el sistema:
 > 1. El sistema debe desarrollarse en ISO C (C99).
@@ -78,10 +82,10 @@
 
 <!-- ##################################################################### -->
 
-# Resolución
+# Resolución <a name="resolucion"></a>
 Este trabajo se realizó siguiendo una serie de **pasos** provistos por la cátedra. Se procede a detallar el realizamiento de los mismos a continuación.
 
-## PASO 0: Entorno de trabajo <a name="paso0"></a>
+## PASO 0: Entorno de trabajo <a name="r_paso0"></a>
 
 > Si bien SERCOM es capaz de compilar y someter a prueba las entregas del alumno, usarlo como entorno de trabajo remoto es lento e ineficiente.
 > Por eso es importante que el alumno invierta un tiempo en la configuración de un entorno de trabajo local que le será mucho más redituable y cómodo.
