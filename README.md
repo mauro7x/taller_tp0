@@ -10,7 +10,15 @@
 
 <!-- ##################################################################### -->
 
-# Presentación del trabajo
+# Tabla de contenidos
+
+1. [Presentación del trabajo](#presentacion)
+2. [Paso 0: entorno de trabajo](#paso0)
+
+
+<!-- ##################################################################### -->
+
+# Presentación del trabajo <a name="presentacion"></a>
 
 ## Descripción del problema
 
@@ -73,7 +81,7 @@
 # Resolución
 Este trabajo se realizó siguiendo una serie de **pasos** provistos por la cátedra. Se procede a detallar el realizamiento de los mismos a continuación.
 
-## PASO 0: Entorno de trabajo
+## PASO 0: Entorno de trabajo <a name="paso0"></a>
 
 > Si bien SERCOM es capaz de compilar y someter a prueba las entregas del alumno, usarlo como entorno de trabajo remoto es lento e ineficiente.
 > Por eso es importante que el alumno invierta un tiempo en la configuración de un entorno de trabajo local que le será mucho más redituable y cómodo.
