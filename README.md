@@ -14,19 +14,18 @@
 
 ## Descripción del problema
 
-```
-Se requiere una aplicación de consola que cuente palabras y líneas de un archivo de texto plano determinado.
-```
+> Se requiere una aplicación de consola que cuente palabras y líneas de un archivo de texto plano determinado.
+
 ## Especificaciones requeridas por la cátedra
 
 ### De funcionalidad:
-```
-El sistema debe recibir el archivo de texto por entrada estándar o como argumento de invocación por línea de comando.
 
-El proceso del archivo consiste en analizar su contenido contando las palabras como conjuntos de caracteres separados por cierto delimitador.
+> El sistema debe recibir el archivo de texto por entrada estándar o como argumento de invocación por línea de comando.
+>
+> El proceso del archivo consiste en analizar su contenido contando las palabras como conjuntos de caracteres separados por cierto delimitador.
+> 
+> El total encontrado se debe imprimir por salida estándar.
 
-El total encontrado se debe imprimir por salida estándar.
-```
 ### De formato:
 ```
 La sintaxis de ejecución del aplicativo será la siguiente:
