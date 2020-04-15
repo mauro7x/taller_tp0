@@ -1,5 +1,9 @@
-*.o
+*
+!/**/
+!*.*
 
+# exclusiones particulares
+*.o
 
 # cpplint
 cpplint.py

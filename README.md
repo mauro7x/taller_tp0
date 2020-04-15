@@ -132,9 +132,26 @@ El valor de salida de `sizeof()` (en particular, de `sizeof(char)` y de `sizeof(
 
 Como siempre, la respuesta es **depende** de la arquitectura en uso, pero en general, esto no se cumple ya que si bien un `char` puede ocupar `1 byte`, por cuestiones de **alineamiento** en la memoria (es conveniente tener las variables en memoria *alineadas* a n bytes, por lo general, a 4 o a 8, ya que facilita su acceso) terminan quedando bytes "desperdiciados".
 
-Ejemplificamos a continuación:
+Para ejemplificar, definamos el siguiente struct:
+```
+[In: 1]     struct Ejemplo {
+                char a;
+                int b;
+            };
+```
+Como vemos, suponiendo que la salida de `sizeof(char)` sea 1 y que la de `sizeof(int)` sea 4, la suma de los `sizeof()` de los respectivos componentes de la estructura, sería 5.
 
+Sin embargo, si corremos `sizeof(struct Ejemplo)`, el resultado no será 5, sino 8, que corresponde a 1 byte del char `a`, 3 bytes "desperdiciados" por la alineación a 4 bytes, y 4 bytes del int `b`.
+```
+[In: 2]     sizeof(char)
+[Out: 2]    1
 
+[In: 3]     sizeof(int)
+[Out: 3]    4
+
+[In: 4]     sizeof(struct Ejemplo)
+[Out: 4]    8
+```
 
 #
 
