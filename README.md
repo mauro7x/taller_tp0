@@ -18,7 +18,13 @@
     * [Restricciones](#reestricciones)
 2. [Resolución](#resolucion)
     * [Paso 0: Entorno de trabajo](#r_paso0)
-
+    * [Paso 1: SERCOM - Errores de generación y normas de programación](#r_paso1)
+    * [Paso 2: SERCOM - Errores de generación 2](#r_paso2)
+    * [Paso 3: SERCOM - Errores de generación 3](#r_paso3)
+    * [Paso 4: SERCOM - Memory Leaks y ​ Buffer Overflows](#r_paso4)
+    * [Paso 5: SERCOM - Código de retorno y salida estándar](#r_paso5)
+    * [Paso 6: SERCOM - Entrega exitosa](#r_paso6)
+3. [Conclusiones](#conclusiones)
 
 <!-- ##################################################################### -->
 
@@ -137,10 +143,20 @@ Ejemplificamos a continuación:
 > Explicar brevemente su uso y cómo redirigirlos en caso de ser necesario (caracteres `>`​ y `​<`​) y como conectar la salida estándar de un proceso a la entrada estándar de otro con un pipe​ (carácter `|`).
 
 
+## PASO 1: SERCOM - Errores de generación y normas de programación <a name="r_paso1"></a>
+
+## PASO 2: SERCOM - Errores de generación 2 <a name="r_paso2"></a>
+
+## PASO 3: SERCOM - Errores de generación 3 <a name="r_paso3"></a>
+
+## PASO 4: SERCOM - Memory Leaks y ​ Buffer Overflows <a name="r_paso4"></a>
+
+## PASO 5: SERCOM - Código de retorno y salida estándar <a name="r_paso5"></a>
+
+## PASO 6: SERCOM - Entrega exitosa <a name="r_paso6"></a>
 
 
-
-
+# Conclusiones <a name="conclusiones"></a>
 
 
 
