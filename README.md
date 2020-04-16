@@ -24,6 +24,7 @@
     * [Paso 4: SERCOM - Memory Leaks y ​ Buffer Overflows](#r_paso4)
     * [Paso 5: SERCOM - Código de retorno y salida estándar](#r_paso5)
     * [Paso 6: SERCOM - Entrega exitosa](#r_paso6)
+    * [Paso 7: SERCOM - Revisión de la entrega](#r_paso7)
 3. [Conclusiones](#conclusiones)
 
 <!-- ##################################################################### -->
@@ -305,24 +306,77 @@ Breve explicación de los mismos:
 
 ### Documentación requerida
 
-> **a.** Describa ​ en breves palabras​ las correcciones realizadas respecto de la versión anterior.
+> **a.** Describa ​en breves palabras​ las correcciones realizadas respecto de la versión anterior.
 
-rta generica
+Se realizaron tres simples cambios que probablemente hayan corregido la mayoría de los errores que tuvimos en el último paso: se incluyó la librería `<stdlib.h>` en `paso2_wordscounter.c` y se incluyeron las librerías `<string.h>` y `<stdio.h>` en `paso2_wordcounter.h`.
+
+Con estas inclusiones, se deberían solucionar todos los problemas de tipos desconocidos que tuvimos con `size_t` y los de declaración implícita que tuvimos con `malloc`.
 
 <hr>
 
-> **b.** Describa ​ en breves palabras​ las correcciones realizadas respecto de la versión anterior.
+> **b.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
 
-rta generica
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**: ![errores_compilacion_paso3](img/p3_stderr_compilacion.png)
+
+Como vemos, nos queda sólo un error, aunque esta vez hay una gran diferencia. Se ha logrado terminar la etapa de **compilación** tanto para `paso3_wordscounter.o` como para `paso3_main.o`. El problema ahora está en el **linker**, y el mismo se debe a que se ha declarado una función llamada `wordscounter_destroy` en el header, se la ha utilizado en el main, pero nunca se la ha definido. En este caso decimos que es un problema del **linker** ya que el compilador **puede** realizar su trabajo con la **declaración** de la función (esta le provee de toda la información que necesita: tipos de datos de retorno, y de parámetros, con los cuáles puede realizar las verificaciones pertinentes).
+
+Al compilador no le preocupa entonces no tener la definición, pues es tarea del **linker** completar la referencia.
 
 <hr>
 
 
 ## PASO 4: SERCOM - Memory Leaks y ​ Buffer Overflows <a name="r_paso4"></a>
 
+> Volver a realizar una nueva entrega.
+> Verificar los cambios realizados respecto de la entrega anterior utilizando el comando diff:
+>
+> ```
+> diff paso3_main.c paso4_main.c || diff paso3_wordscounter.c paso4_wordscounter.c || diff paso3_wordscounter.h paso4_wordscounter.h
+> ```
+>
+> Observar que el archivo ejecutable se generó exitosamente y se ejecutaron los casos de prueba.
+>
+> Observar que las pruebas ‘TDA’, ‘C Language’ y ‘STDIN’ corrieron exitosamente aunque fallaron al ejecutar con Valgrind.
+>
+> Observar que las pruebas ‘Invalid File’, ‘Long Filename’ y ‘Single Word’ no lograron correr exitosamente.
+
+### Documentación requerida
+
+> **a.** Describa en breves palabras las correcciones realizadas respecto de la versión anterior.
+
+rta generica
+
+<hr>
+
+> **b.** Captura de pantalla del resultado de ejecución con Valgrind​ de la prueba `TDA`. Describir los errores reportados por Valgrind.
+
+rta generica
+
+<hr>
+
+> **c.** Captura de pantalla del resultado de ejecución con Valgrind​ de la prueba `Long Filename`. Describir los errores reportados por Valgrind.
+
+rta generica
+
+<hr>
+
+> **d.** ¿Podría solucionarse este error utilizando la función `strncpy​`? ¿Qué hubiera ocurrido con la ejecución de la prueba?
+
+rta generica
+
+<hr>
+
+> **e.** Explicar de qué se trata un `segmentation fault​` y un `buffer overflow​`.
+
+rta generica
+
+<hr>
+
 ## PASO 5: SERCOM - Código de retorno y salida estándar <a name="r_paso5"></a>
 
 ## PASO 6: SERCOM - Entrega exitosa <a name="r_paso6"></a>
+
+## PASO 7: SERCOM - Revisión de la entrega <a name="r_paso7"></a>
 
 
 # Conclusiones <a name="conclusiones"></a>
