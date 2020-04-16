@@ -190,16 +190,27 @@ Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiale
 Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la verificación de las **normas de codificación**: ![errores_codificacion](img/p1_stderr_codificacion.png)
 
 Procedo a explicar cada uno de ellos: <a name="errores_estilo"></a>
+
 1. El primero nos dice que falta agregar un `whitespace` antes de la condición de un `while` (escribir `while (...)` en vez de `while(...)`).
+
 2. Este segundo error se debe a que la cantidad de espacios dentro del `if` no coincide con el estándar. 
+
 3. Ahora nos informa que hay `whitespaces` de más dentro de la condición del `if` (escribir `if (a > b)` en vez de `if ( ___ a > b)`).
+
 4. Se genera ya que el `else if` debe escribirse en la misma linea que el anterior `}`.
+
 5. Explica que si un `else` tiene una llave de un lado, la debería tener en ambos (debería ser `} else if {`).
+
 6. Idem error **1.**
+
 7. Nos informa que hay un `whitespace` extra antes de `;`.
+
 8. Nos dice que usemos `snprintf` en vez de `strcpy`.
+
 9. Idem error **4.**
+
 10. Idem error **5.**
+
 11. Se debe a que la longitud de la línea es mayor a 80 (límite).
 
 <hr>
@@ -209,11 +220,16 @@ Procedo a explicar cada uno de ellos: <a name="errores_estilo"></a>
 Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y generación del ejecutable: ![errores_compilacion](img/p1_stderr_compilacion.png)
 
 Procedo a explicar cada uno de ellos:
+
 1. El primer error está en la linea 22, donde se utiliza `wordscounter_t` como un tipo de dato sin antes definirlo. Se trata de un **error de compilación**, pues el compilador necesita saber qué tipo de variable es para poder reservar la memoria para la misma, y para esto es necesaria su previa **definición** (no alcanza con declararla).
+
 2. El segundo error se encuentra en la linea 23 y se debe a que en `paso1_main.c` se utiliza una supuesta función `wordscounter_create` **sin antes declararla**. El problema con esto es que el compilador **necesita conocer la firma** de la función para poder realizar las verificaciones pertinentes en cuanto a los parámetros que se pasan, y al tipo de dato que se espera en el retorno.
 En cuanto a si se trata de un error de compilación o de linkeo, este caso es más delicado: normalmente, la declaración implícita de funciones arroja un *warning* en etapa de compilación, ya que este problema puede ser resuelto en etapa de linkeo. Seguramente, lo que está sucediendo es que se compila utilizando el flag `-Werror` que convierte los *warnings* en *errores*. Por esto es que se puede decir que es un **error de compilación.**
+
 3. Idem **2.**, pero con la función `wordscounter_process`.
+
 4. Idem **2.**, pero con la función `wordscounter_get_words`.
+
 5. Idem **2.**, pero con la función `wordscounter_destroy`.
 
 <hr>
@@ -229,7 +245,9 @@ No, el sistema **no reportó warnings**, y esto se debe a que se utilizó el fla
 > Volver a realizar una nueva entrega.
 > Verificar los cambios realizados respecto de la entrega anterior utilizando el comando diff:
 >
-> ```diff paso1_main.c paso2_main.c || diff paso1_wordscounter.c paso2_wordscounter.c || diff paso1_wordscounter.h paso2_wordscounter.h```
+> ```
+> diff paso1_main.c paso2_main.c || diff paso1_wordscounter.c paso2_wordscounter.c || diff paso1_wordscounter.h paso2_wordscounter.h
+> ```
 >
 > Observar que el chequeo de normas de codificación es exitoso pero aún no fue posible generar un ejecutable.
 
@@ -237,24 +255,68 @@ No, el sistema **no reportó warnings**, y esto se debe a que se utilizó el fla
 
 > **a.** Describa ​ en breves palabras​ las correcciones realizadas respecto de la versión anterior.
 
-Los cambios realizados apuntaron a corregir los **errores de estilo** detallados en el paso anterior. Es decir, se eliminaron `whitespaces` innecesarios, se agregaron otros que hacían falta, etc. Se puede ver la lista de los errores que fueron arreglados [aquí](#errores_estilo).
+Por un lado, los cambios realizados apuntaron a corregir los **errores de estilo** detallados en el paso anterior. Es decir, se eliminaron `whitespaces` innecesarios, se agregaron otros que hacían falta, etc. Se puede ver la lista de los errores que fueron arreglados [aquí](#errores_estilo).
+
+Por otro lado, también se arregló el error de **funciones declaradas de forma implícita** en el `paso1_main.c`, puesto que se incluyó el header con la linea `#include "paso2_wordscounter.h"` donde se declara las funciones y estructuras utilizadas.
 
 <hr>
 
 > **b.** Captura de pantalla indicando la correcta ejecución de verificación de normas de
 programación.
 
-Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la verificación de las **normas de codificación**: ![errores_codificacion](img/p1_stderr_codificacion.png)
+Se adjunta la captura pedida, donde se puede observar que la verificación de las normas de programación fueron ejecutadas correctamente: ![verificacion_estilo_correcta](img/p2_correcta_verificacion_normas.png)
 
 <hr>
 
 > **c.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
 
-rta generica
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**: ![errores_compilacion_paso2](img/p2_stderr_compilacion.png)
+
+Breve explicación de los mismos:
+
+1. El primer error está en la linea 7 del header `paso2_wordscounter.h`, donde se utiliza el tipo de dato `size_t` sin incluir la librería que lo define. Es un **error de compilación** pues el compilador necesita conocer el tamaño en bytes del tipo de dato utilizado para reservar la memoria.
+
+2. En la linea 20 del mismo header, se repite el error del punto **1.**
+
+3. En la linea 25, se vuelve a repetir el mismo error, pero con el tipo de dato `FILE`.
+
+4. En la linea 17 del archivo `paso2_wordscounter.c`, nos lanza un error de **conflicto de tipos de datos**, debido a que en la declaración del mismo en el header, tenemos el problema descripto en el item **2.** Se trata también de un **error de compilación**, pues arrastramos el error anterior.
+
+5. En la linea 20 del header, tenemos una nota que nos informa de una **declaración previa** de la función con la que tuvimos conflicto en el item anterior: `wordscounter_get_words(...)`. No se trata de un error.
+
+6. En la linea 30 del archivo c, nuevamente tenemos un problema de **definición implícita**, en este caso de la función `malloc`. Se trata de un warning en compilación, y de un **error** en linkeo, pero como se utiliza el flag `-Werror`, se levanta el error en etapa de compilación.
+
+7. Otro error generado por la declaración implícita detallada en el item **6.**: nos informa que hay una incompatibilidad entre la función implícita y la función `built-in` de GCC. Tengo entendido que esto se debe a que cuando declaramos de forma implícita una función en C, el tipo de retorno se establece como `int`, mientras que en la función `built-in` de GCC, el tipo de retorno será otro. Nuevamente, error de compilación.
+
+8. Nota en la que GCC nos pide incluir `<stdlib.h>` para incluir la declaración de `malloc` o declararla. No se trata de un error.
 
 <hr>
 
 ## PASO 3: SERCOM - Errores de generación 3 <a name="r_paso3"></a>
+
+> Volver a realizar una nueva entrega.
+> Verificar los cambios realizados respecto de la entrega anterior utilizando el comando diff:
+>
+> ```
+> diff paso2_main.c paso3_main.c || diff paso2_wordscounter.c paso3_wordscounter.c || diff paso2_wordscounter.h paso3_wordscounter.h
+> ```
+>
+> Observar que el chequeo de normas de codificación es exitoso pero aún no fue posible generar un ejecutable.
+
+### Documentación requerida
+
+> **a.** Describa ​ en breves palabras​ las correcciones realizadas respecto de la versión anterior.
+
+rta generica
+
+<hr>
+
+> **b.** Describa ​ en breves palabras​ las correcciones realizadas respecto de la versión anterior.
+
+rta generica
+
+<hr>
+
 
 ## PASO 4: SERCOM - Memory Leaks y ​ Buffer Overflows <a name="r_paso4"></a>
 
