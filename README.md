@@ -159,6 +159,23 @@ Sin embargo, si corremos `sizeof(struct Ejemplo)`, el resultado no será 5, sino
 > 
 > Explicar brevemente su uso y cómo redirigirlos en caso de ser necesario (caracteres `>`​ y `​<`​) y como conectar la salida estándar de un proceso a la entrada estándar de otro con un pipe​ (carácter `|`).
 
+`STDIN`, `STDOUT`, y `STDERR` son canales de streams de datos, respectivamente, de entrada, de salida, y de error. 
+* El prefijo `STD` representa `STANDARD`, por lo que `STDIN` significa `Standard Input`. Por este canal, se envian datos al programa (canal de entrada).
+* `STDOUT` significa `Standard Output`, canal por el cual el programa envía datos (canal de salida).
+* `STDERR` significa `Standard Error`, canal por el cual se envían los mensajes de error en caso de existir. 
+
+Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiales que se detallan a continuación:
+* `[ < ]:` La utilización de este caracter permite **redirigir la entrada estandar** (*stdin*) de nuestro programa. Ejemplificamos:
+    * Ejecutando nuestro programa corriendo `./tp`, si queremos leer algo de *stdin*, por defecto leemos de la consola (teclado).
+    * Si en cambio queremos leer de un archivo de texto, por ejemplo, podemos correr `./tp < archivo.txt`, lo que establece a `archivo.txt ` como entrada estandar de datos de nuestro programa. Es decir que cada vez que leamos de stdin, estamos leyendo de `archivo.txt`.
+* `[ > ]:` Funciona de la misma manera que `[ > ]`, solo que se redirige la salida del programa. Por ejemplo:
+    * Si corremos `./tp` y en nuestro código enviamos un mensaje por **stdout**, por defecto se imprimirá en la consola (pues es el canal de salida por defecto, *stdout*).
+    * Si en cambio corremos `./tp > archivo.txt`, el mismo código esta vez escribira el contenido en el archivo de texto `archivo.txt`.
+* `[ | ]:` Permite conectar la salida de un proceso con la entrada de otro. Por ejemplo: supongamos que tenemos dos archivos de texto `file1.txt`, y `file2.txt` que queremos utilizar como **stdin** para nuestro programa. Lo que podemos hacer es ejecutar: `cat file1.txt file2.txt | ./tp`. Analicemos por partes esta instrucción:
+    1. Vemos que tenemos dos procesos, por un lado `cat file1.txt file2.txt` y por otro `./tp`.
+    2. La salida del primer proceso, que sera la concatenación de los archivos `file1.txt` y `file2.txt`, será redirigida a la entrada de `./tp` por medio del caracter `[ | ]`.
+    3. Ahora, la concatenación de ambos archivos de texto es la entrada estandar de nuestro programa.
+
 
 ## PASO 1: SERCOM - Errores de generación y normas de programación <a name="r_paso1"></a>
 
