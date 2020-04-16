@@ -99,7 +99,6 @@ Este trabajo se realizó siguiendo una serie de **pasos** provistos por la cáte
 
 ### Documentación requerida
 
-
 > **a.** Capturas de pantalla de la ejecución del aplicativo (con y sin Valgrind).
 
 Se incluyen a continuación las capturas de pantallas pedidas:
@@ -108,7 +107,7 @@ Se incluyen a continuación las capturas de pantallas pedidas:
 
 2. Ejecución del aplicativo con Valgrind: ![esta es una imagen](img/p0-ejecucion_valgrind.png)
 
-#
+<hr>
 
 > **b.** ¿Para qué sirve ​ Valgrind​? ¿Cuáles son sus opciones más comunes?
 
@@ -116,7 +115,7 @@ Valgrind es una herramienta que nos permite, entre otras cosas, verificar que nu
 
 Si bien sé que Valgrind tiene otras opciones, como desconozco sus utilidades me limito a contestar sobre el uso que le dí en anteriores materias *(Algoritmos y Programación II)*.
 
-#
+<hr>
 
 > **c.** ¿Qué representa ​ sizeof()​? ¿Cuál sería el valor de salida de sizeof(char)​ y ​sizeof(int)​?
 
@@ -124,7 +123,7 @@ Si bien sé que Valgrind tiene otras opciones, como desconozco sus utilidades me
 
 El valor de salida de `sizeof()` (en particular, de `sizeof(char)` y de `sizeof(int)`) **no es fijo** ya que siempre **depende** de la arquitectura en la que se está trabajando. En general, `sizeof(char)` devolvera `1` mientras que `sizeof(int)` devolvera `4`, pero repito, depende siempre de la arquitectura.
 
-#
+<hr>
 
 > **d.** ¿El ​ sizeof()​ de una struct de C es igual a la suma del sizeof() ​de cada uno sus elementos?
 >
@@ -153,13 +152,13 @@ Sin embargo, si corremos `sizeof(struct Ejemplo)`, el resultado no será 5, sino
 [Out: 4]    8
 ```
 
-#
+<hr>
 
 > **e.** Investigar la existencia de los archivos estándar: STDIN, STDOUT, STDERR.
 > 
 > Explicar brevemente su uso y cómo redirigirlos en caso de ser necesario (caracteres `>`​ y `​<`​) y como conectar la salida estándar de un proceso a la entrada estándar de otro con un pipe​ (carácter `|`).
 
-`STDIN`, `STDOUT`, y `STDERR` son canales de streams de datos, respectivamente, de entrada, de salida, y de error. 
+`STDIN`, `STDOUT`, y `STDERR` son **canales** de streams de datos, respectivamente, de **entrada**, de **salida**, y de **error**. 
 * El prefijo `STD` representa `STANDARD`, por lo que `STDIN` significa `Standard Input`. Por este canal, se envian datos al programa (canal de entrada).
 * `STDOUT` significa `Standard Output`, canal por el cual el programa envía datos (canal de salida).
 * `STDERR` significa `Standard Error`, canal por el cual se envían los mensajes de error en caso de existir. 
@@ -168,7 +167,7 @@ Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiale
 * `[ < ]:` La utilización de este caracter permite **redirigir la entrada estandar** (*stdin*) de nuestro programa. Ejemplificamos:
     * Ejecutando nuestro programa corriendo `./tp`, si queremos leer algo de *stdin*, por defecto leemos de la consola (teclado).
     * Si en cambio queremos leer de un archivo de texto, por ejemplo, podemos correr `./tp < archivo.txt`, lo que establece a `archivo.txt ` como entrada estandar de datos de nuestro programa. Es decir que cada vez que leamos de stdin, estamos leyendo de `archivo.txt`.
-* `[ > ]:` Funciona de la misma manera que `[ > ]`, solo que se redirige la salida del programa. Por ejemplo:
+* `[ > ]:` Funciona de la misma manera que `[ < ]`, sólo que se redirige la salida del programa. Por ejemplo:
     * Si corremos `./tp` y en nuestro código enviamos un mensaje por **stdout**, por defecto se imprimirá en la consola (pues es el canal de salida por defecto, *stdout*).
     * Si en cambio corremos `./tp > archivo.txt`, el mismo código esta vez escribira el contenido en el archivo de texto `archivo.txt`.
 * `[ | ]:` Permite conectar la salida de un proceso con la entrada de otro. Por ejemplo: supongamos que tenemos dos archivos de texto `file1.txt`, y `file2.txt` que queremos utilizar como **stdin** para nuestro programa. Lo que podemos hacer es ejecutar: `cat file1.txt file2.txt | ./tp`. Analicemos por partes esta instrucción:
@@ -176,8 +175,33 @@ Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiale
     2. La salida del primer proceso, que sera la concatenación de los archivos `file1.txt` y `file2.txt`, será redirigida a la entrada de `./tp` por medio del caracter `[ | ]`.
     3. Ahora, la concatenación de ambos archivos de texto es la entrada estandar de nuestro programa.
 
+<hr>
 
 ## PASO 1: SERCOM - Errores de generación y normas de programación <a name="r_paso1"></a>
+
+> Entregar el código fuente identificado para el paso actual subiendo un archivo .ZIP al SERCOM.
+>
+> Analizar el resultado de la ejecución del mismo. Observar que la entrega falló, debido a que SERCOM no pudo generar la aplicación correctamente y fallaron las normas de verificación de código.
+
+### Documentación requerida
+
+> **a.** Captura de pantalla mostrando los problemas de estilo detectados. Explicar cada uno.
+
+rta generica
+
+<hr>
+
+> **b.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
+
+rta generica
+
+<hr>
+
+> **c.** ¿El sistema reportó algún WARNING? ¿Por qué?
+
+rta generica
+
+<hr>
 
 ## PASO 2: SERCOM - Errores de generación 2 <a name="r_paso2"></a>
 
