@@ -103,9 +103,9 @@ Este trabajo se realizó siguiendo una serie de **pasos** provistos por la cáte
 
 Se incluyen a continuación las capturas de pantallas pedidas:
 
-1. Ejecución del aplicativo sin Valgrind: ![esta es una imagen](img/p0-ejecucion_gcc.png)
+1. Ejecución del aplicativo sin Valgrind: ![ejecucion_sin_valgrind](img/p0-ejecucion_sin_valgrind.png)
 
-2. Ejecución del aplicativo con Valgrind: ![esta es una imagen](img/p0-ejecucion_valgrind.png)
+2. Ejecución del aplicativo con Valgrind: ![ejecucion_con_valgrind](img/p0-ejecucion_con_valgrind.png)
 
 <hr>
 
@@ -133,14 +133,14 @@ Como siempre, la respuesta es **depende** de la arquitectura en uso, pero en gen
 
 Para ejemplificar, definamos el siguiente struct:
 ```
-[In: 1]     struct Ejemplo {
+[In: 1]     typedef struct {
                 char a;
                 int b;
-            };
+            } ejemplo;
 ```
 Como vemos, suponiendo que la salida de `sizeof(char)` sea 1 y que la de `sizeof(int)` sea 4, la suma de los `sizeof()` de los respectivos componentes de la estructura, sería 5.
 
-Sin embargo, si corremos `sizeof(struct Ejemplo)`, el resultado no será 5, sino 8, que corresponde a 1 byte del char `a`, 3 bytes "desperdiciados" por la alineación a 4 bytes, y 4 bytes del int `b`.
+Sin embargo, si corremos `sizeof(ejemplo)`, el resultado no será 5, sino 8, que corresponde a 1 byte del char `a`, 3 bytes "desperdiciados" por la alineación a 4 bytes, y 4 bytes del int `b`.
 ```
 [In: 2]     sizeof(char)
 [Out: 2]    1
@@ -148,7 +148,7 @@ Sin embargo, si corremos `sizeof(struct Ejemplo)`, el resultado no será 5, sino
 [In: 3]     sizeof(int)
 [Out: 3]    4
 
-[In: 4]     sizeof(struct Ejemplo)
+[In: 4]     sizeof(ejemplo)
 [Out: 4]    8
 ```
 
@@ -187,23 +187,72 @@ Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiale
 
 > **a.** Captura de pantalla mostrando los problemas de estilo detectados. Explicar cada uno.
 
-rta generica
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la verificación de las **normas de codificación**: ![errores_codificacion](img/p1_stderr_codificacion.png)
+
+Procedo a explicar cada uno de ellos: <a name="errores_estilo"></a>
+1. El primero nos dice que falta agregar un `whitespace` antes de la condición de un `while` (escribir `while (...)` en vez de `while(...)`).
+2. Este segundo error se debe a que la cantidad de espacios dentro del `if` no coincide con el estándar. 
+3. Ahora nos informa que hay `whitespaces` de más dentro de la condición del `if` (escribir `if (a > b)` en vez de `if ( ___ a > b)`).
+4. Se genera ya que el `else if` debe escribirse en la misma linea que el anterior `}`.
+5. Explica que si un `else` tiene una llave de un lado, la debería tener en ambos (debería ser `} else if {`).
+6. Idem error **1.**
+7. Nos informa que hay un `whitespace` extra antes de `;`.
+8. Nos dice que usemos `snprintf` en vez de `strcpy`.
+9. Idem error **4.**
+10. Idem error **5.**
+11. Se debe a que la longitud de la línea es mayor a 80 (límite).
 
 <hr>
 
 > **b.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
 
-rta generica
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y generación del ejecutable: ![errores_compilacion](img/p1_stderr_compilacion.png)
+
+Procedo a explicar cada uno de ellos:
+1. El primer error está en la linea 22, donde se utiliza `wordscounter_t` como un tipo de dato sin antes definirlo. Se trata de un **error de compilación**, pues el compilador necesita saber qué tipo de variable es para poder reservar la memoria para la misma, y para esto es necesaria su previa **definición** (no alcanza con declararla).
+2. El segundo error se encuentra en la linea 23 y se debe a que en `paso1_main.c` se utiliza una supuesta función `wordscounter_create` **sin antes declararla**. El problema con esto es que el compilador **necesita conocer la firma** de la función para poder realizar las verificaciones pertinentes en cuanto a los parámetros que se pasan, y al tipo de dato que se espera en el retorno.
+En cuanto a si se trata de un error de compilación o de linkeo, este caso es más delicado: normalmente, la declaración implícita de funciones arroja un *warning* en etapa de compilación, ya que este problema puede ser resuelto en etapa de linkeo. Seguramente, lo que está sucediendo es que se compila utilizando el flag `-Werror` que convierte los *warnings* en *errores*. Por esto es que se puede decir que es un **error de compilación.**
+3. Idem **2.**, pero con la función `wordscounter_process`.
+4. Idem **2.**, pero con la función `wordscounter_get_words`.
+5. Idem **2.**, pero con la función `wordscounter_destroy`.
 
 <hr>
 
 > **c.** ¿El sistema reportó algún WARNING? ¿Por qué?
 
-rta generica
+No, el sistema **no reportó warnings**, y esto se debe a que se utilizó el flag `-Werror` para compilar con gcc. Este flag convierte todos los warnings en errores *(asumo que se utilizó este flag puesto que `-Wimplicit-function-declaration` siempre es un **warning**)*.
 
 <hr>
 
 ## PASO 2: SERCOM - Errores de generación 2 <a name="r_paso2"></a>
+
+> Volver a realizar una nueva entrega.
+> Verificar los cambios realizados respecto de la entrega anterior utilizando el comando diff:
+>
+> ```diff paso1_main.c paso2_main.c || diff paso1_wordscounter.c paso2_wordscounter.c || diff paso1_wordscounter.h paso2_wordscounter.h```
+>
+> Observar que el chequeo de normas de codificación es exitoso pero aún no fue posible generar un ejecutable.
+
+### Documentación requerida
+
+> **a.** Describa ​ en breves palabras​ las correcciones realizadas respecto de la versión anterior.
+
+Los cambios realizados apuntaron a corregir los **errores de estilo** detallados en el paso anterior. Es decir, se eliminaron `whitespaces` innecesarios, se agregaron otros que hacían falta, etc. Se puede ver la lista de los errores que fueron arreglados [aquí](#errores_estilo).
+
+<hr>
+
+> **b.** Captura de pantalla indicando la correcta ejecución de verificación de normas de
+programación.
+
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la verificación de las **normas de codificación**: ![errores_codificacion](img/p1_stderr_codificacion.png)
+
+<hr>
+
+> **c.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
+
+rta generica
+
+<hr>
 
 ## PASO 3: SERCOM - Errores de generación 3 <a name="r_paso3"></a>
 
