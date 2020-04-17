@@ -188,7 +188,9 @@ Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiale
 
 > **a.** Captura de pantalla mostrando los problemas de estilo detectados. Explicar cada uno.
 
-Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la verificación de las **normas de codificación**: ![errores_codificacion](img/p1_stderr_codificacion.png)
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la verificación de las **normas de codificación**:
+
+![errores_codificacion](img/p1_stderr_codificacion.png)
 
 Procedo a explicar cada uno de ellos: <a name="errores_estilo"></a>
 
@@ -218,7 +220,9 @@ Procedo a explicar cada uno de ellos: <a name="errores_estilo"></a>
 
 > **b.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
 
-Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y generación del ejecutable: ![errores_compilacion](img/p1_stderr_compilacion.png)
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y generación del ejecutable:
+
+![errores_compilacion](img/p1_stderr_compilacion.png)
 
 Procedo a explicar cada uno de ellos:
 
@@ -265,13 +269,17 @@ Por otro lado, también se arregló el error de **funciones declaradas de forma 
 > **b.** Captura de pantalla indicando la correcta ejecución de verificación de normas de
 programación.
 
-Se adjunta la captura pedida, donde se puede observar que la verificación de las normas de programación fueron ejecutadas correctamente: ![verificacion_estilo_correcta](img/p2_correcta_verificacion_normas.png)
+Se adjunta la captura pedida, donde se puede observar que la verificación de las normas de programación fueron ejecutadas correctamente:
+
+![verificacion_estilo_correcta](img/p2_correcta_verificacion_normas.png)
 
 <hr>
 
 > **c.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
 
-Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**: ![errores_compilacion_paso2](img/p2_stderr_compilacion.png)
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**:
+
+![errores_compilacion_paso2](img/p2_stderr_compilacion.png)
 
 Breve explicación de los mismos:
 
@@ -316,7 +324,9 @@ Con estas inclusiones, se deberían solucionar todos los problemas de tipos desc
 
 > **b.** Captura de pantalla indicando los errores de generación del ejecutable. Explicar cada uno e indicar si se trata de errores del compilador o del linker.
 
-Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**: ![errores_compilacion_paso3](img/p3_stderr_compilacion.png)
+Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**:
+
+![errores_compilacion_paso3](img/p3_stderr_compilacion.png)
 
 Como vemos, nos queda sólo un error, aunque esta vez hay una gran diferencia. Se ha logrado terminar la etapa de **compilación** tanto para `paso3_wordscounter.o` como para `paso3_main.o`. El problema ahora está en el **linker**, y el mismo se debe a que se ha declarado una función llamada `wordscounter_destroy` en el header, se la ha utilizado en el main, pero nunca se la ha definido. En este caso decimos que es un problema del **linker** ya que el compilador **puede** realizar su trabajo con la **declaración** de la función (esta le provee de toda la información que necesita: tipos de datos de retorno, y de parámetros, con los cuáles puede realizar las verificaciones pertinentes).
 
@@ -344,31 +354,69 @@ Al compilador no le preocupa entonces no tener la definición, pues es tarea del
 
 > **a.** Describa en breves palabras las correcciones realizadas respecto de la versión anterior.
 
-rta generica
+La única corrección realizada fue que se definió la función `wordscounter_destroy` en `paso4_wordscounter.c`, lo que permite armar el ejecutable sin problemas pues soluciona el problema de linkeo que teníamos en el paso anterior.
 
 <hr>
 
 > **b.** Captura de pantalla del resultado de ejecución con Valgrind​ de la prueba `TDA`. Describir los errores reportados por Valgrind.
 
-rta generica
+Se adjunta la captura pedida, donde se muestra la salida de Valgrind (**valgrind.out**) en la prueba `TDA`:
+
+![salida_valgrind_tda_paso4](img/p4_tda_valgrind.png)
+
+Vemos que se establece el código de error para Valgrind en `42`, y que el resultado de la ejecución con Valgrind fue justamente `42`, lo que significa que la prueba falla. Veamos en mas detalle los errores.
+
+Valgrind reporta los siguientes `leaks` de memoria:
+
+![salida_valgrind_tda_zoom_paso4](img/p4_tda_valgrind_zoom.png)
+
+Como podemos ver, nos informa que tras la ejecución de nuestro código hubieron `leaks de memoria`, lo que significa que se reservó memoria que nunca se libreró. Específicamente, nos informa que se perdieron **1505 bytes**, y los mismos no seran recuperados hasta que el S.O. forzosamente los recupere, o en su defecto hasta que se reinicie el sistema.
+
+Además, si bien no estoy seguro de que se trate de un *error*, nos informa que no se cerró el archivo `input_tda.txt`:
+
+![salida_valgrind_tda_zoom_2_paso4](img/p4_tda_valgrind_zoom_2.png)
+
+
 
 <hr>
 
 > **c.** Captura de pantalla del resultado de ejecución con Valgrind​ de la prueba `Long Filename`. Describir los errores reportados por Valgrind.
 
-rta generica
+Se adjunta la captura pedida, donde se muestra la salida de Valgrind (**valgrind.out**) en la prueba `Long Filename`:
+
+![salida_valgrind_longfilename_paso4](img/p4_longfilename_valgrind.png)
+
+En este caso vemos que Valgrind no reporta errores de `memory leaks`, sino que reporta **errores en la ejecución del programa**:
+
+
+![salida_valgrind_longfilename_zoom_paso4](img/p4_longfilenamez_zoom_valgrind.png)
+
+Vemos que nos informa sobre un **buffer overflow** que terminó la ejecución del programa. Nos informa que el mismo se generó por la utilización de la función `memcopy` en `paso4_main.c`. Este error se generó debido a que `memcpy` copia desde `src` en `dest` la cantidad de caracteres `n` que se le indique. El problema está en que nuestro **buffer** (*`dest`*) tiene memoria finita reservada para su almacenamiento, por lo que si no tenemos reestricciones para `n`, se genera este **overflow**.
+
 
 <hr>
 
 > **d.** ¿Podría solucionarse este error utilizando la función `strncpy​`? ¿Qué hubiera ocurrido con la ejecución de la prueba?
 
-rta generica
+No, no se solucionaría el error utilizando la función `strncpy`. Según tengo entendido, la diferencia entre ambas funciones es simplemente que `memcpy` copia hasta los `n` caracteres indicados, mientras que `strncpy` se detiene si encuentra un símbolo de terminación de string. 
+
+En este caso, como explicamos antes, el error se genera porque nuestro **input** tiene más de 30 caracteres, por lo que no entran en el **buffer destino** generando un overflow del mismo en la memoria.
+
+La prueba **fallaría** de igual manera, por un overflow del buffer.
 
 <hr>
 
 > **e.** Explicar de qué se trata un `segmentation fault​` y un `buffer overflow​`.
 
-rta generica
+**Buffer overflow**: como su nombre lo indica, ocurre cuando "desbordamos" un buffer, es decir, cuando cometemos el error de *copiar una cantidad de datos sobre una variable que **no tiene el espacio en memoria reservado que es necesario** para almacenar tal cantidad. Por ejemplo, en el caso de nuestro buffer `filepath`: el mismo tiene capacidad para almacenar hasta **30 chars**, por lo que si intentamos ingresar un archivo cuya ruta supere los 30 chars, generaremos este overflow.
+
+**Segmentation fault**: este error es más comun, se genera cuando queremos acceder a **zonas de memoria no permitidas**, y puede suceder por diversas causas. Por ejemplo, puede suceder cuando queremos acceder a una posición de un *array* que no pertenece al mismo, como podría ser en el siguiente ejemplo:
+
+```
+int ejemplo[10]; // nuestro array se indexa desde 0 ... 9
+ejemplo[10] = 34; // cometemos un error indexando
+```
+O también se puede pensar en el ejemplo de nuestro trabajo práctico, ya que los *buffer overflows* **implican** *segmentation faults*. De acuerdo con lo explicado, en un buffer overflow estamos intentando escribir sobre memoria que no corresponde al buffer en sí, es decir estamos comentiendo un **segmentation fault**.
 
 <hr>
 
