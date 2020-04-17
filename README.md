@@ -283,7 +283,7 @@ Breve explicación de los mismos:
 
 4. En la linea 17 del archivo `paso2_wordscounter.c`, nos lanza un error de **conflicto de tipos de datos**, debido a que en la declaración del mismo en el header, tenemos el problema descripto en el item **2.** Se trata también de un **error de compilación**, pues arrastramos el error anterior.
 
-5. En la linea 20 del header, tenemos una nota que nos informa de una **declaración previa** de la función con la que tuvimos conflicto en el item anterior: `wordscounter_get_words(...)`. No se trata de un error.
+5. En la linea 20 del header, tenemos una nota que nos informa de una **declaración previa** de la función con la que tuvimos conflicto en el item anterior: `wordscounter_get_words(...)`, y esto se debe a que al no reconocer el tipo de dato, no la reconoce y cree que la estamos re-declarando. No se trata de un error en si, el problema es el descripto en el item **4.**
 
 6. En la linea 30 del archivo c, nuevamente tenemos un problema de **definición implícita**, en este caso de la función `malloc`. Se trata de un warning en compilación, y de un **error** en linkeo, pero como se utiliza el flag `-Werror`, se levanta el error en etapa de compilación.
 
