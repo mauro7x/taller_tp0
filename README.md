@@ -25,7 +25,6 @@
     * [Paso 5: SERCOM - Código de retorno y salida estándar](#r_paso5)
     * [Paso 6: SERCOM - Entrega exitosa](#r_paso6)
     * [Paso 7: SERCOM - Revisión de la entrega](#r_paso7)
-3. [Conclusiones](#conclusiones)
 
 <!-- ##################################################################### -->
 
