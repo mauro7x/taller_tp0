@@ -4,6 +4,8 @@
 
 # exclusiones particulares
 *.o
+*.zip
+*.txt
 
 # cpplint
 cpplint.py

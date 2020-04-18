@@ -372,7 +372,7 @@ Valgrind reporta los siguientes `leaks` de memoria:
 
 Como podemos ver, nos informa que tras la ejecución de nuestro código hubieron `leaks de memoria`, lo que significa que se reservó memoria que nunca se libreró. Específicamente, nos informa que se perdieron **1505 bytes**, y los mismos no seran recuperados hasta que el S.O. forzosamente los recupere, o en su defecto hasta que se reinicie el sistema.
 
-Además, si bien no estoy seguro de que se trate de un *error*, nos informa que no se cerró el archivo `input_tda.txt`:
+Además, en otro error, nos informa que al finalizar la ejecución no se cerró el archivo `input_tda.txt`:
 
 ![salida_valgrind_tda_zoom_2_paso4](img/p4_tda_valgrind_zoom_2.png)
 
@@ -422,12 +422,182 @@ O también se puede pensar en el ejemplo de nuestro trabajo práctico, ya que lo
 
 ## PASO 5: SERCOM - Código de retorno y salida estándar <a name="r_paso5"></a>
 
+> Volver a realizar una nueva entrega.
+> Verificar los cambios realizados respecto de la entrega anterior utilizando el comando diff:
+>
+> ```
+> diff paso4_main.c paso5_main.c || diff paso4_wordscounter.c paso5_wordscounter.c || diff paso4_wordscounter.h paso5_wordscounter.h
+> ```
+>
+> Observar que las pruebas ‘TDA’, ‘C Language’, ‘STDIN’ y ‘Long Filename’ corrieron exitosamente sin fallas de Valgrind.
+>
+> Observar que las pruebas ‘Invalid File’ y ‘Single Word’ no lograron correr exitosamente.
+>
+> Ubique en el SERCOM el caso de prueba​ ‘Single Word’, descargue y descomprima sus archivos de entrada.
+>
+> Ubique en el SERCOM la tarea fuente​ ‘Compilar C99 Simple’, descargue y descomprima sus archivos de entrada.
+>
+> Asegúrese que todos los archivos de código fuente, el archivo ‘input_single_word.txt’ y el archivo Makefile se encuentran ​ en el mismo directorio.
+>
+> Ejecute el comando `hexdump` para examinar el contenido del archivo ‘input_single_word.txt’ en modo binario.
+> ```
+> hd input_single_word.txt
+> o
+> hexdump -C input_single_word.txt
+> ```
+> 
+> Coloque el archivo ‘input_single_word.txt’ junto con todos los archivos de código fuente. Compile el código​ utilizando el comando `make`.
+>
+> Ejecute el comando `gdb` para examinar el depurar la ejecución del programa:
+> ```
+> gdb ./tp
+> info functions
+> list wordscounter_next_state
+> list
+> break 45
+> run input_single_word.txt
+>>quit
+> ```
+
+### Documentación requerida
+
+> **a.** Describa en breves palabras las correcciones realizadas respecto de la versión anterior.
+
+Esta vez se realizaron varias correcciones, las cuales detallare de forma breve por cada archivo:
+- `paso5_main.c`: para setear el input desde un archivo en caso de que se brinde uno por los argumentos, no se copia el *filepath* a otra variable, si no que se usa directamente `argv[1]` para abrirlo. Evita el posible **buffer overflow** que vimos en el paso anterior.
+- `paso5_wordscounter.c`: en vez de reservar memoria dinámica con `malloc` para los siete caracteres delimitadores cada vez que se invoque a la función `wordscounter_next_state`, se los agrupa todos en una misma variable de tipo `const char*`. Esto resolverá el problema de los leaks en memoria. 
+
+
+<hr>
+
+> **b.** Describa el motivo por el que fallan las prueba ‘Invalid File’ y ‘Single Word’. ¿Qué información entrega SERCOM para identificar el error? Realice una captura de pantalla.
+
+Inicialmente, cuando entramos a la entrega realizada, podemos ver en la sección `Corrida` las pruebas que fallaron en rojo, donde *SERCOM* nos da información sobre **qué prueba fallo**, **en qué tarea**, nos hace **observaciones**, en algunos casos nos muestra las **diferencias** entre lo esperado y lo obtenido, y finalmente nos proporciona los **archivos de salida** con el detalle de los fallos. *Adjunto capturas a continuación donde se observa esto:*
+
+![fallos_sercom_1](img/p5_invalid_file.png)
+![fallos_sercom_2](img/p5_single_word.png)
+
+A continuación, utilizando esta información que SERCOM nos proporciona, analizamos por qué fallo cada una de ellas.
+
+- **`Invalid File`**: vemos en las observaciones que la tarea `1| Correr | Prueba normalmente, sin filtros` falla debido a que:
+> "Se esperaba terminar con un código de retorno 1 pero se obtuvo 255."
+
+Tras correr el mismo en `local`, observo que efectivamente que el programa no reporta ningún error. *Adjunto captura:*
+
+![no_hay_error](img/p5_nohayerror.png)
+
+
+- **`Single Word`**: vemos que en este caso, la prueba falla ya que ninguna de sus dos tareas se logran realizar. Analizamos la falla de cada una de ellas:
+    - `1| Correr`: vemos que según las observaciones, no coincide la salida con lo esperado. Entrando en el apartado `Diferencias`, podemos ver que se esperaba un `1` mientras que la salida retornó `0`. *Adjunto captura:*
+
+    ![diferencias_p5](img/p5_diferencias.png)
+
+    - `2| Valgrind-FailOnError`: falla por exactamente la misma razón. Se esperaba un `1` y se obtuvo un `0`.
+
+<hr>
+
+> **c.** Captura de pantalla de la ejecución del comando `hexdump`.
+> ¿Cuál es el último carácter del archivo `input_single_word.txt`?
+
+Adjunto la captura pedida del comando `hexdump` a continuación:
+
+![p5_hexdump](img/p5_hexdump.png)
+
+Vemos que el último carácter del archivo es la `d` de `word`. Podemos ver esto ya que como vemos, luedo de la palabra, en el último renglón, nos especifíca la dirección del último carácter del archivo, `00000004` *(que en este caso corresponde a `d`).*
+
+Para que detecte la palabra, nuestro programa necesita que en el archivo se agregue el carácter `0a` al final del mismo ya sea por la inserción de un salto de linea, o de un espacio, etc. *(adjunto captura que muestra como debería verse el caracter para el programa en su estado actual detecte la palabra):*
+
+![p5_hexdump_2](img/p5_hexdump_2.png)
+
+Al no contar con este carácter, nuestro programa **no detectará la palabra**, y retornara **0** cuando debía retornar **1**.
+
+<hr>
+
+> **d.** Captura de pantalla con el resultado de la ejecución con `gdb`.
+> Explique brevemente los comandos utilizados en `gdb`.
+> ¿Por qué motivo el debugger no se detuvo en el breakpoint de la línea 45: `self->words++;`?
+
+Explicación breve de los comandos utilizados en `gdb`:
+
+- **`info functions`**: muestra las funciones definidas en cada archivo, con sus correspondientes TDA de retorno, y sus parámetros (nos muestra la *declaración* de las funciones).
+
+![gdb_1](img/p5_gdb_1.png)
+
+- **`list wordscounter_next_state`**: muestra 10 lineas alrededor de la función que se pasa como argumento.
+
+![gdb_2](img/p5_gdb_2.png)
+
+- **`list`**: muestra 10 lineas, partiendo de las últimas lineas que mostró en un uso anterior de list.
+
+![gdb_3](img/p5_gdb_3.png)
+
+- **`break 45`**: establece un *breakpoint* en una linea, donde el programa dentendrá su ejecución al llegar allí. Es una poderosa **herramienta** de debugging pues permite estudiar las variables y su comportamiento en **determinados momentos** del programa.
+
+![gdb_4](img/p5_gdb_4.png)
+
+- **`run input_single_word.txt`**: inicia la ejecución del programa, pasandole el archivo como argumento.
+
+![gdb_5](img/p5_gdb_5.png)
+
+- **`quit`**: termina la ejecución de **gdb**.
+
+**`gdb`** no se detuvo en la linea 45 ya que el archivo de entrada utilizado `input_single_word.txt` no contiene ningún carácter definido como delimitador. Es por esto que no reconoce la palabra.
+
+<hr>
+
 ## PASO 6: SERCOM - Entrega exitosa <a name="r_paso6"></a>
+
+> Volver a realizar una nueva entrega.
+> Verificar los cambios realizados respecto de la entrega anterior utilizando el comando diff:
+>
+> ```
+> diff paso5_main.c paso6_main.c || diff paso5_wordscounter.c paso6_wordscounter.c || diff paso5_wordscounter.h paso6_wordscounter.h
+> ```
+>
+> Observar que todas las pruebas fueron exitosas.
+>
+> Compilar el código y ejecutar localmente la prueba ‘Single Word’ utilizando distintas variantes:
+> ```
+> make
+> ./tp input_single_word.txt
+> ./tp <input_single_word.txt
+> ./tp <input_single_word.txt >output_single_word.txt
+> ```
+
+### Documentación requerida
+
+> **a.** Describa en breves palabras las correcciones realizadas respecto de la versión anterior.
+
+Nuevamente, describo las correcciones realizadas por archivo:
+- `paso6_main.c`: se re-define la constante `ERROR` con el valor `1` en vez de `-1`.
+- `paso6_wordscounter.c`: primero, se definen los caracteres delimitadores como una constante. También se modifica la función `words_next_state` para que ahora si estamos en medio de una palabra y llega el *end of file* sin antes reconocer un carácter delimitador, se cuente la palabra.
+
+<hr>
+
+> **b.** Captura de pantalla mostrando todas las entregas realizadas​, tanto exitosas como fallidas.
+
+Se adjunta la captura pedida, donde se ven las 6 entregas realizadas, siendo la última la **exitosa** (*paso 6*):
+
+![p6_entregas](img/p6_entregas.png)
+
+<hr>
+
+> **c.** Captura de pantalla mostrando la ejecución de la prueba ‘Single Word’ de forma local​ con las distintas variantes indicadas.
+
+Se adjunta la captura pedida:
+
+![p6_prueba](img/p6_finish.png)
+
+<hr>
 
 ## PASO 7: SERCOM - Revisión de la entrega <a name="r_paso7"></a>
 
+> Revisar el estado de todas las pruebas ejecutadas en SERCOM con el código del paso 6.
+>
+> Abrir cada una de las salidas de Valgrind​ y controlar que no hay errores reportados que no fueran detectados como un fallo en la ejecución. Revisar con atención el listado de archivos abiertos al finalizar el programa.
+>
+> Controlar el código final entregado. Verificar el uso de buenas prácticas de programación y el cumplimiento del enunciado del trabajo.
 
-# Conclusiones <a name="conclusiones"></a>
 
 
 
