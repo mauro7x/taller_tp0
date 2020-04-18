@@ -159,7 +159,7 @@ Sin embargo, si corremos `sizeof(ejemplo)`, el resultado no será 5, sino 8, que
 > Explicar brevemente su uso y cómo redirigirlos en caso de ser necesario (caracteres `>`​ y `​<`​) y como conectar la salida estándar de un proceso a la entrada estándar de otro con un pipe​ (carácter `|`).
 
 `STDIN`, `STDOUT`, y `STDERR` son **canales** de streams de datos, respectivamente, de **entrada**, de **salida**, y de **error**. 
-* El prefijo `STD` representa `STANDARD`, por lo que `STDIN` significa `Standard Input`. Por este canal, se envian datos al programa (canal de entrada).
+* El prefijo `STD` representa `STANDARD`, por lo que `STDIN` significa `Standard Input`. Por este canal, se envían datos al programa (canal de entrada).
 * `STDOUT` significa `Standard Output`, canal por el cual el programa envía datos (canal de salida).
 * `STDERR` significa `Standard Error`, canal por el cual se envían los mensajes de error en caso de existir. 
 
