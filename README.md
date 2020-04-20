@@ -104,9 +104,13 @@ Este trabajo se realizó siguiendo una serie de **pasos** provistos por la cáte
 
 Se incluyen a continuación las capturas de pantallas pedidas:
 
-1. Ejecución del aplicativo sin Valgrind: ![ejecucion_sin_valgrind](img/p0-ejecucion_sin_valgrind.png)
+| ![ejecucion_sin_valgrind](img/p0-ejecucion_sin_valgrind.png) | 
+|:--:| 
+| *Ejecución del aplicativo sin Valgrind* |
 
-2. Ejecución del aplicativo con Valgrind: ![ejecucion_con_valgrind](img/p0-ejecucion_con_valgrind.png)
+| ![ejecucion_con_valgrind](img/p0-ejecucion_con_valgrind.png) | 
+|:--:| 
+| *Ejecución del aplicativo utilizando Valgrind* |
 
 <hr>
 
@@ -192,7 +196,7 @@ Se adjunta la captura pedida, donde se muestra el **stderr** generado por los er
 
 | ![errores_codificacion](img/p1_stderr_codificacion.png) | 
 |:--:| 
-| ***stderr*** *generado por los errores en la verificación de las normas de codificación*|
+| ***stderr*** *generado por los errores en la verificación de las normas de codificación* |
 
 ![errores_codificacion](img/p1_stderr_codificacion.png)
 
