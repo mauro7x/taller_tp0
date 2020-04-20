@@ -112,9 +112,9 @@ Se incluyen a continuación las capturas de pantallas pedidas:
 
 > **b.** ¿Para qué sirve ​ Valgrind​? ¿Cuáles son sus opciones más comunes?
 
-Valgrind es una herramienta que nos permite, entre otras cosas, verificar que nuestro código no tenga problemas con el **manejo de la memoria** dinámica, como pueden ser los llamados `memory leaks`, en los que nunca se libera la memoria reservada.
+Valgrind es una herramienta que nos permite, entre otras cosas, verificar que nuestro código no tenga problemas con el **manejo de la memoria** dinámica, como pueden ser los llamados `memory leaks`, en los que nunca se libera la memoria reservada. Esta opción se llama **memcheck**, y es la que he utilizado anteriormente.
 
-Si bien sé que Valgrind tiene otras opciones, como desconozco sus utilidades me limito a contestar sobre el uso que le dí en anteriores materias *(Algoritmos y Programación II)*.
+Si bien sé que Valgrind tiene otras opciones, como desconozco sus utilidades me limito a contestar sobre el uso que le dí en anteriores materias *(principalmente, Algoritmos y Programación II, donde trabajamos con estructuras de datos no lineales, utilizando memoria dinámica)*.
 
 <hr>
 
@@ -174,7 +174,7 @@ Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiale
 * `[ | ]:` Permite conectar la salida de un proceso con la entrada de otro. Por ejemplo: supongamos que tenemos dos archivos de texto `file1.txt`, y `file2.txt` que queremos utilizar como **stdin** para nuestro programa. Lo que podemos hacer es ejecutar: `cat file1.txt file2.txt | ./tp`. Analicemos por partes esta instrucción:
     1. Vemos que tenemos dos procesos, por un lado `cat file1.txt file2.txt` y por otro `./tp`.
     2. La salida del primer proceso, que sera la concatenación de los archivos `file1.txt` y `file2.txt`, será redirigida a la entrada de `./tp` por medio del caracter `[ | ]`.
-    3. Ahora, la concatenación de ambos archivos de texto es la entrada estandar de nuestro programa.
+    3. Ahora, la concatenación de ambos archivos de texto es la entrada estándar de nuestro programa.
 
 <hr>
 
@@ -190,9 +190,13 @@ Estos canales pueden ser **redirigidos** utilizando ciertos caracteres especiale
 
 Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la verificación de las **normas de codificación**:
 
+| ![errores_codificacion](img/p1_stderr_codificacion.png) | 
+|:--:| 
+| ***stderr*** *generado por los errores en la verificación de las normas de codificación*|
+
 ![errores_codificacion](img/p1_stderr_codificacion.png)
 
-Procedo a explicar cada uno de ellos: <a name="errores_estilo"></a>
+Procedo a explicar cada uno de ellos en el órden de aparición en la captura adjunta: <a name="errores_estilo"></a>
 
 1. El primero nos dice que falta agregar un `whitespace` antes de la condición de un `while` (escribir `while (...)` en vez de `while(...)`).
 
@@ -598,6 +602,7 @@ Se adjunta la captura pedida:
 >
 > Controlar el código final entregado. Verificar el uso de buenas prácticas de programación y el cumplimiento del enunciado del trabajo.
 
+<hr>
 
 # Conclusiones
 
