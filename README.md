@@ -25,6 +25,7 @@
     * [Paso 5: SERCOM - Código de retorno y salida estándar](#r_paso5)
     * [Paso 6: SERCOM - Entrega exitosa](#r_paso6)
     * [Paso 7: SERCOM - Revisión de la entrega](#r_paso7)
+3. [Conclusiones](#conclusiones)
 
 <!-- ##################################################################### -->
 
@@ -598,7 +599,9 @@ Se adjunta la captura pedida:
 > Controlar el código final entregado. Verificar el uso de buenas prácticas de programación y el cumplimiento del enunciado del trabajo.
 
 
+# Conclusiones
 
+Finalizado este trabajo práctico introductorio a la materia, en lo personal creo que la experiencia fue muy positiva, ya que me permitió conocer el funcionamiento del sistema **SERCOM** a ser utilizado por el resto de la cursada para la entrega de próximos trabajos, y familiarizarme con su entorno de entregas.
 
-
+Este sistema ha mostrado saber proporcionar información muy útil a la hora de ejecutar ciertas pruebas y requisitos de un programa, proporcionandonos todos los archivos de entrada utilizados y archivos de salida que se obtienen. Esto hace del **SERCOM** una herramienta muy eficaz en las primeras etapas del *debugging*.
 
