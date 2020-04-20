@@ -104,11 +104,11 @@ Este trabajo se realizó siguiendo una serie de **pasos** provistos por la cáte
 
 Se incluyen a continuación las capturas de pantallas pedidas:
 
-| ![ejecucion_sin_valgrind](img/p0-ejecucion_sin_valgrind.png) | 
+| ![ejecucion_sin_valgrind](img/p0_ejecucion_sin_valgrind.png) | 
 |:--:| 
 | *Ejecución del aplicativo sin Valgrind* |
 
-| ![ejecucion_con_valgrind](img/p0-ejecucion_con_valgrind.png) | 
+| ![ejecucion_con_valgrind](img/p0_ejecucion_con_valgrind.png) | 
 |:--:| 
 | *Ejecución del aplicativo utilizando Valgrind* |
 
@@ -198,8 +198,6 @@ Se adjunta la captura pedida, donde se muestra el **stderr** generado por los er
 |:--:| 
 | ***stderr*** *generado por los errores en la verificación de las normas de codificación* |
 
-![errores_codificacion](img/p1_stderr_codificacion.png)
-
 Procedo a explicar cada uno de ellos en el órden de aparición en la captura adjunta: <a name="errores_estilo"></a>
 
 1. El primero nos dice que falta agregar un `whitespace` antes de la condición de un `while` (escribir `while (...)` en vez de `while(...)`).
@@ -230,9 +228,11 @@ Procedo a explicar cada uno de ellos en el órden de aparición en la captura ad
 
 Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y generación del ejecutable:
 
-![errores_compilacion](img/p1_stderr_compilacion.png)
+| ![errores_compilacion](img/p1_stderr_compilacion.png) | 
+|:--:| 
+| ***stderr*** *generado por los errores en la compilación y generación del ejecutable* |
 
-Procedo a explicar cada uno de ellos:
+Procedo a explicar cada uno de ellos en órden de aparición:
 
 1. El primer error está en la linea 22, donde se utiliza `wordscounter_t` como un tipo de dato sin antes definirlo. Se trata de un **error de compilación**, pues el compilador necesita saber qué tipo de variable es para poder reservar la memoria para la misma, y para esto es necesaria su previa **definición** (no alcanza con declararla).
 
@@ -274,12 +274,13 @@ Por otro lado, también se arregló el error de **funciones declaradas de forma 
 
 <hr>
 
-> **b.** Captura de pantalla indicando la correcta ejecución de verificación de normas de
-programación.
+> **b.** Captura de pantalla indicando la correcta ejecución de verificación de normas de programación.
 
-Se adjunta la captura pedida, donde se puede observar que la verificación de las normas de programación fueron ejecutadas correctamente:
+Se adjunta la captura pedida:
 
-![verificacion_estilo_correcta](img/p2_correcta_verificacion_normas.png)
+| ![verificacion_estilo_correcta](img/p2_correcta_verificacion_normas.png) | 
+|:--:| 
+| *Correcta ejecución de la verificación de las normas de codificación* |
 
 <hr>
 
@@ -287,9 +288,11 @@ Se adjunta la captura pedida, donde se puede observar que la verificación de la
 
 Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**:
 
-![errores_compilacion_paso2](img/p2_stderr_compilacion.png)
+| ![errores_compilacion_paso2](img/p2_stderr_compilacion.png) | 
+|:--:| 
+| ***stderr*** *generado por los errores en la compilación y generación del ejecutable* |
 
-Breve explicación de los mismos:
+Breve explicación de los mismos, en órden:
 
 1. El primer error está en la linea 7 del header `paso2_wordscounter.h`, donde se utiliza el tipo de dato `size_t` sin incluir la librería que lo define. Es un **error de compilación** pues el compilador necesita conocer el tamaño en bytes del tipo de dato utilizado para reservar la memoria.
 
@@ -334,14 +337,15 @@ Con estas inclusiones, se deberían solucionar todos los problemas de tipos desc
 
 Se adjunta la captura pedida, donde se muestra el **stderr** generado por los errores en la **compilación** y **generación del ejecutable**:
 
-![errores_compilacion_paso3](img/p3_stderr_compilacion.png)
+| ![errores_compilacion_paso3](img/p3_stderr_compilacion.png) | 
+|:--:| 
+| ***stderr*** *generado por la compilación y generación del ejecutable* |
 
 Como vemos, nos queda sólo un error, aunque esta vez hay una gran diferencia. Se ha logrado terminar la etapa de **compilación** tanto para `paso3_wordscounter.o` como para `paso3_main.o`. El problema ahora está en el **linker**, y el mismo se debe a que se ha declarado una función llamada `wordscounter_destroy` en el header, se la ha utilizado en el main, pero nunca se la ha definido. En este caso decimos que es un problema del **linker** ya que el compilador **puede** realizar su trabajo con la **declaración** de la función (esta le provee de toda la información que necesita: tipos de datos de retorno, y de parámetros, con los cuáles puede realizar las verificaciones pertinentes).
 
 Al compilador no le preocupa entonces no tener la definición, pues es tarea del **linker** completar la referencia.
 
 <hr>
-
 
 ## PASO 4: SERCOM - Memory Leaks y ​ Buffer Overflows <a name="r_paso4"></a>
 
@@ -370,21 +374,25 @@ La única corrección realizada fue que se definió la función `wordscounter_de
 
 Se adjunta la captura pedida, donde se muestra la salida de Valgrind (**valgrind.out**) en la prueba `TDA`:
 
-![salida_valgrind_tda_paso4](img/p4_tda_valgrind.png)
+| ![salida_valgrind_tda_paso4](img/p4_tda_valgrind.png) | 
+|:--:| 
+| ***valgrind.out:*** *reporte de errores tras la ejecución con Valgrind* |
 
 Vemos que se establece el código de error para Valgrind en `42`, y que el resultado de la ejecución con Valgrind fue justamente `42`, lo que significa que la prueba falla. Veamos en mas detalle los errores.
 
 Valgrind reporta los siguientes `leaks` de memoria:
 
-![salida_valgrind_tda_zoom_paso4](img/p4_tda_valgrind_zoom.png)
+| ![salida_valgrind_tda_zoom_paso4](img/p4_tda_valgrind_zoom.png) | 
+|:--:| 
+| ***valgrind.out:*** *sección donde vemos los leaks de memoria* |
 
 Como podemos ver, nos informa que tras la ejecución de nuestro código hubieron `leaks de memoria`, lo que significa que se reservó memoria que nunca se libreró. Específicamente, nos informa que se perdieron **1505 bytes**, y los mismos no seran recuperados hasta que el S.O. forzosamente los recupere, o en su defecto hasta que se reinicie el sistema.
 
 Además, en otro error, nos informa que al finalizar la ejecución no se cerró el archivo `input_tda.txt`:
 
-![salida_valgrind_tda_zoom_2_paso4](img/p4_tda_valgrind_zoom_2.png)
-
-
+| ![salida_valgrind_tda_zoom_2_paso4](img/p4_tda_valgrind_zoom_2.png) | 
+|:--:| 
+| ***valgrind.out:*** *sección donde vemos los archivos que no fueron cerrados* |
 
 <hr>
 
@@ -392,21 +400,23 @@ Además, en otro error, nos informa que al finalizar la ejecución no se cerró 
 
 Se adjunta la captura pedida, donde se muestra la salida de Valgrind (**valgrind.out**) en la prueba `Long Filename`:
 
-![salida_valgrind_longfilename_paso4](img/p4_longfilename_valgrind.png)
+| ![salida_valgrind_longfilename_paso4](img/p4_longfilename_valgrind.png) | 
+|:--:| 
+| ***valgrind.out:*** *salida de la ejecución de la prueba 'Long Filename'* |
 
 En este caso vemos que Valgrind no reporta errores de `memory leaks`, sino que reporta **errores en la ejecución del programa**:
 
-
-![salida_valgrind_longfilename_zoom_paso4](img/p4_longfilenamez_zoom_valgrind.png)
+| ![salida_valgrind_longfilename_zoom_paso4](img/p4_longfilenamez_zoom_valgrind.png) | 
+|:--:| 
+| ***valgrind.out:*** *sección donde vemos el reporte de un buffer overflow* |
 
 Vemos que nos informa sobre un **buffer overflow** que terminó la ejecución del programa. Nos informa que el mismo se generó por la utilización de la función `memcopy` en `paso4_main.c`. Este error se generó debido a que `memcpy` copia desde `src` en `dest` la cantidad de caracteres `n` que se le indique. El problema está en que nuestro **buffer** (*`dest`*) tiene memoria finita reservada para su almacenamiento, por lo que si no tenemos reestricciones para `n`, se genera este **overflow**.
-
 
 <hr>
 
 > **d.** ¿Podría solucionarse este error utilizando la función `strncpy​`? ¿Qué hubiera ocurrido con la ejecución de la prueba?
 
-No, no se solucionaría el error utilizando la función `strncpy`. Según tengo entendido, la diferencia entre ambas funciones es simplemente que `memcpy` copia hasta los `n` caracteres indicados, mientras que `strncpy` se detiene si encuentra un símbolo de terminación de string. 
+No, no se solucionaría el error utilizando la función `strncpy`. Según tengo entendido, la diferencia entre ambas funciones es simplemente que `memcpy` copia hasta los `n` caracteres indicados, mientras que `strncpy` se detiene si encuentra un símbolo de terminación de string.  Es decir, su utilización nos serviría en caso de que nuestro *source* sea **menor** a n, no mayor.
 
 En este caso, como explicamos antes, el error se genera porque nuestro **input** tiene más de 30 caracteres, por lo que no entran en el **buffer destino** generando un overflow del mismo en la memoria.
 
@@ -475,15 +485,19 @@ Esta vez se realizaron varias correcciones, las cuales detallare de forma breve 
 - `paso5_main.c`: para setear el input desde un archivo en caso de que se brinde uno por los argumentos, no se copia el *filepath* a otra variable, si no que se usa directamente `argv[1]` para abrirlo. Evita el posible **buffer overflow** que vimos en el paso anterior.
 - `paso5_wordscounter.c`: en vez de reservar memoria dinámica con `malloc` para los siete caracteres delimitadores cada vez que se invoque a la función `wordscounter_next_state`, se los agrupa todos en una misma variable de tipo `const char*`. Esto resolverá el problema de los leaks en memoria. 
 
-
 <hr>
 
 > **b.** Describa el motivo por el que fallan las prueba ‘Invalid File’ y ‘Single Word’. ¿Qué información entrega SERCOM para identificar el error? Realice una captura de pantalla.
 
 Inicialmente, cuando entramos a la entrega realizada, podemos ver en la sección `Corrida` las pruebas que fallaron en rojo, donde *SERCOM* nos da información sobre **qué prueba fallo**, **en qué tarea**, nos hace **observaciones**, en algunos casos nos muestra las **diferencias** entre lo esperado y lo obtenido, y finalmente nos proporciona los **archivos de salida** con el detalle de los fallos. *Adjunto capturas a continuación donde se observa esto:*
 
-![fallos_sercom_1](img/p5_invalid_file.png)
-![fallos_sercom_2](img/p5_single_word.png)
+| ![fallos_sercom_1](img/p5_invalid_file.png) | 
+|:--:| 
+| ***SERCOM:*** *Ejecución de prueba 'Invalid File'* |
+
+| ![fallos_sercom_2](img/p5_single_word.png) | 
+|:--:| 
+| ***SERCOM:*** *Ejecución de prueba 'Single Word'* |
 
 A continuación, utilizando esta información que SERCOM nos proporciona, analizamos por qué fallo cada una de ellas.
 
@@ -492,13 +506,16 @@ A continuación, utilizando esta información que SERCOM nos proporciona, analiz
 
 Tras correr el mismo en `local`, observo que efectivamente que el programa no reporta ningún error. *Adjunto captura:*
 
-![no_hay_error](img/p5_nohayerror.png)
-
+| ![no_hay_error](img/p5_nohayerror.png) | 
+|:--:| 
+| ***LOCAL:*** *Ejecución de prueba 'Invalid File', sin obtener código de error 1* |
 
 - **`Single Word`**: vemos que en este caso, la prueba falla ya que ninguna de sus dos tareas se logran realizar. Analizamos la falla de cada una de ellas:
     - `1| Correr`: vemos que según las observaciones, no coincide la salida con lo esperado. Entrando en el apartado `Diferencias`, podemos ver que se esperaba un `1` mientras que la salida retornó `0`. *Adjunto captura:*
 
-    ![diferencias_p5](img/p5_diferencias.png)
+    | ![diferencias_p5](img/p5_diferencias.png) |
+    |:--:|
+    | ***SERCOM:*** *Diferencias entre lo esperado y lo obtenido en la ejecución de la prueba 'Single Word'* |
 
     - `2| Valgrind-FailOnError`: falla por exactamente la misma razón. Se esperaba un `1` y se obtuvo un `0`.
 
@@ -509,13 +526,17 @@ Tras correr el mismo en `local`, observo que efectivamente que el programa no re
 
 Adjunto la captura pedida del comando `hexdump` a continuación:
 
-![p5_hexdump](img/p5_hexdump.png)
+| ![p5_hexdump](img/p5_hexdump.png) | 
+|:--:| 
+| *Inspección del archivo 'input_single_word.txt' con el comando* ***hexdump (hd)*** |
 
 Vemos que el último carácter del archivo es la `d` de `word`. Podemos ver esto ya que como vemos, luedo de la palabra, en el último renglón, nos especifíca la dirección del último carácter del archivo, `00000004` *(que en este caso corresponde a `d`).*
 
 Para que detecte la palabra, nuestro programa necesita que en el archivo se agregue el carácter `0a` al final del mismo ya sea por la inserción de un salto de linea, o de un espacio, etc. *(adjunto captura que muestra como debería verse el caracter para el programa en su estado actual detecte la palabra):*
 
-![p5_hexdump_2](img/p5_hexdump_2.png)
+| ![p5_hexdump_2](img/p5_hexdump_2.png) | 
+|:--:| 
+| ***hexdump:*** *en este archivo SI se incluye el caracter delimitador al finalizar la palabra* |
 
 Al no contar con este carácter, nuestro programa **no detectará la palabra**, y retornara **0** cuando debía retornar **1**.
 
@@ -529,23 +550,33 @@ Explicación breve de los comandos utilizados en `gdb`:
 
 - **`info functions`**: muestra las funciones definidas en cada archivo, con sus correspondientes TDA de retorno, y sus parámetros (nos muestra la *declaración* de las funciones).
 
-![gdb_1](img/p5_gdb_1.png)
+| ![gdb_1](img/p5_gdb_1.png) | 
+|:--:| 
+| ***gdb:*** *ejecución del comando 'info functions'* |
 
 - **`list wordscounter_next_state`**: muestra 10 lineas alrededor de la función que se pasa como argumento.
 
-![gdb_2](img/p5_gdb_2.png)
+| ![gdb_2](img/p5_gdb_2.png) | 
+|:--:| 
+| ***gdb:*** *ejecución del comando 'list wordscounter_next_state'* |
 
 - **`list`**: muestra 10 lineas, partiendo de las últimas lineas que mostró en un uso anterior de list.
 
-![gdb_3](img/p5_gdb_3.png)
+| ![gdb_3](img/p5_gdb_3.png) | 
+|:--:| 
+| ***gdb:*** *ejecución del comando 'list'* |
 
 - **`break 45`**: establece un *breakpoint* en una linea, donde el programa dentendrá su ejecución al llegar allí. Es una poderosa **herramienta** de debugging pues permite estudiar las variables y su comportamiento en **determinados momentos** del programa.
 
-![gdb_4](img/p5_gdb_4.png)
+| ![gdb_4](img/p5_gdb_4.png) | 
+|:--:| 
+| ***gdb:*** *ejecución del comando 'break 45'* |
 
 - **`run input_single_word.txt`**: inicia la ejecución del programa, pasandole el archivo como argumento.
 
-![gdb_5](img/p5_gdb_5.png)
+| ![gdb_5](img/p5_gdb_5.png) | 
+|:--:| 
+| ***gdb:*** *ejecución del comando 'run input_single_word.txt'* |
 
 - **`quit`**: termina la ejecución de **gdb**.
 
@@ -586,7 +617,9 @@ Nuevamente, describo las correcciones realizadas por archivo:
 
 Se adjunta la captura pedida, donde se ven las 6 entregas realizadas, siendo la última la **exitosa** (*paso 6*):
 
-![p6_entregas](img/p6_entregas.png)
+| ![p6_entregas](img/p6_entregas.png) | 
+|:--:| 
+| ***SERCOM:*** *Lista de entregas realizadas, siendo la última la única exitosa* |
 
 <hr>
 
@@ -594,7 +627,9 @@ Se adjunta la captura pedida, donde se ven las 6 entregas realizadas, siendo la 
 
 Se adjunta la captura pedida:
 
-![p6_prueba](img/p6_finish.png)
+| ![p6_prueba](img/p6_finish.png) | 
+|:--:| 
+| ***LOCAL:*** *Ejecución de prueba 'Single Word' en distintas variantes* |
 
 <hr>
 
