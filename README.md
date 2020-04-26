@@ -128,6 +128,9 @@ Si bien sé que Valgrind tiene otras opciones, como desconozco sus utilidades me
 
 El valor de salida de `sizeof()` (en particular, de `sizeof(char)` y de `sizeof(int)`) **no es fijo** ya que siempre **depende** de la arquitectura en la que se está trabajando. En general, `sizeof(char)` devolvera `1` mientras que `sizeof(int)` devolvera `4`, pero repito, depende siempre de la arquitectura.
 
+<!-- El tamaño de un char es siempre 1, sin importar la arquitectura -->
+<!-- sizeof no es una función, es un operador -->
+
 <hr>
 
 > **d.** ¿El ​ sizeof()​ de una struct de C es igual a la suma del sizeof() ​de cada uno sus elementos?
@@ -307,6 +310,8 @@ Breve explicación de los mismos, en órden:
 6. En la linea 30 del archivo c, nuevamente tenemos un problema de **definición implícita**, en este caso de la función `malloc`. Se trata de un warning en compilación, y de un **error** en linkeo, pero como se utiliza el flag `-Werror`, se levanta el error en etapa de compilación.
 
 7. Otro error generado por la declaración implícita detallada en el item **6.**: nos informa que hay una incompatibilidad entre la función implícita y la función `built-in` de GCC. Tengo entendido que esto se debe a que cuando declaramos de forma implícita una función en C, el tipo de retorno se establece como `int`, mientras que en la función `built-in` de GCC, el tipo de retorno será otro. Nuevamente, error de compilación.
+
+<!-- "nos informa que hay una incompatibilidad entre la función implícita y la función `built-in` de GCC." ¿Estás seguro? Mirá bien de qué tipo es la variable delim_words... -->
 
 8. Nota en la que GCC nos pide incluir `<stdlib.h>` para incluir la declaración de `malloc` o declararla. No se trata de un error.
 
